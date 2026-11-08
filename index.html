@@ -49,9 +49,10 @@
   </div>
 
   <script>
-    // ⚠️ 請記得把下方的引號內換成你自己的 Google Apps Script 部署網址！
+    // 1. 貼上剛才從 Apps Script 複製的網址
     const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzU0hlXRhBGKQQe1SA2GM4vt5OSSG5bLQyrPwneMSAFPwm1w_wLHztvJ2HBKnFF_wtD9A/exec";
 
+    // 2. 從網址參數獲取機台編號 (例如：index.html?machine=A01)
     const urlParams = new URLSearchParams(window.location.search);
     const machineId = urlParams.get('machine') || '未知機台';
 
@@ -70,9 +71,10 @@
       btn.innerText = "傳送中...";
       msg.innerText = "";
 
+      // 發送 POST 請求給 Apps Script
       fetch(GAS_WEB_APP_URL, {
         method: "POST",
-        mode: "no-cors",
+        mode: "no-cors", // Google Apps Script 跨網域常規設定
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ machineId: machineId })
       })
